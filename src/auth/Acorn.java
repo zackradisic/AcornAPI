@@ -130,8 +130,8 @@ public class Acorn {
 				.url(url[0])
 				.get()
 				.build();
-		try {
-			Response response = client.newCall(request).execute();
+		try (Response response = client.newCall(request).execute();){
+
 			String body = response.body().string();
 			Map<String, String> res = getFormData(Jsoup.parse(body), false);
 			res.put("_eventId_proceed", ""); // must have this field!
@@ -159,8 +159,8 @@ public class Acorn {
 				.addHeader("Content-Type", "application/x-www-form-urlencoded")
 				.post(formBuilder.build())
 				.build();
-		try {
-			Response response = client.newCall(request).execute();
+		try (Response response = client.newCall(request).execute();){
+
 			String body = response.body().string();
 			Map<String, String> res = getFormData(Jsoup.parse(body), true);
 			// Error
@@ -195,8 +195,8 @@ public class Acorn {
 				.url(newUrl)
 				.post(formBuilder.build())
 				.build();
-		try {
-			Response response = client.newCall(request).execute();
+		try (Response response = client.newCall(request).execute();){
+
 			if(response.body().string().contains("<title>ACORN</title>")){
 				return true;
 			}
